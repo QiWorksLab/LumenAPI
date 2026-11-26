@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS `api_admins` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `uk_username` (`username`) USING BTREE,
   UNIQUE KEY `uq_admin_user_id` (`user_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 CREATE TABLE IF NOT EXISTS `api_audit_logs` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `api_audit_logs` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `idx_admin` (`admin_id`) USING BTREE,
   KEY `idx_created` (`created_at`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=142 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 CREATE TABLE IF NOT EXISTS `api_billing_logs` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `api_endpoint_params` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `uk_endpoint_param` (`endpoint_id`,`location`,`name`) USING BTREE,
   KEY `idx_endpoint` (`endpoint_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 CREATE TABLE IF NOT EXISTS `api_endpoints` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -107,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `api_endpoints` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `uk_slug` (`slug`) USING BTREE,
   KEY `idx_status` (`status`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 CREATE TABLE IF NOT EXISTS `api_keys` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -130,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `api_keys` (
   UNIQUE KEY `uk_key_hash` (`key_hash`) USING BTREE,
   KEY `idx_status` (`status`) USING BTREE,
   KEY `idx_user_id` (`user_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 CREATE TABLE IF NOT EXISTS `api_model_mappings` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -200,7 +200,7 @@ CREATE TABLE IF NOT EXISTS `api_quota_lots` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `uk_quota_lot_source` (`source_type`,`source_id`) USING BTREE,
   KEY `idx_quota_lot_user` (`user_id`,`status`,`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 CREATE TABLE IF NOT EXISTS `api_recharge_orders` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -227,7 +227,7 @@ CREATE TABLE IF NOT EXISTS `api_recharge_orders` (
   UNIQUE KEY `uk_recharge_provider_trade` (`provider`,`provider_trade_no`) USING BTREE,
   KEY `idx_recharge_user_created` (`user_id`,`created_at`) USING BTREE,
   KEY `idx_recharge_status` (`status`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 CREATE TABLE IF NOT EXISTS `api_refund_orders` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -275,7 +275,7 @@ CREATE TABLE IF NOT EXISTS `api_request_logs` (
   KEY `idx_endpoint_created` (`endpoint_id`,`created_at`) USING BTREE,
   KEY `idx_request_logs_user_created` (`user_id`,`created_at`) USING BTREE,
   KEY `idx_request_logs_key_created` (`key_id`,`created_at`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=528 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 CREATE TABLE IF NOT EXISTS `api_settings` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -286,7 +286,7 @@ CREATE TABLE IF NOT EXISTS `api_settings` (
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `uk_key` (`key`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 CREATE TABLE IF NOT EXISTS `api_users` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -314,4 +314,4 @@ CREATE TABLE IF NOT EXISTS `api_users` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `uk_username` (`username`) USING BTREE,
   UNIQUE KEY `uk_email` (`email`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
