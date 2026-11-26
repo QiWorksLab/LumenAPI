@@ -13,3 +13,5 @@ renderer/node_modules
 *.pfx
 
 storage/install/install.lock
+/API/
+/private-handlers/
