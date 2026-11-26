@@ -1,0 +1,37 @@
+# Production secrets
+.env
+.env.*
+!.env.example
+!.example.env
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Dependencies / local binaries
+/vendor/
+/renderer/node_modules/
+composer.phar
+
+# Runtime / generated data
+/runtime/
+/backups/
+*.log
+*.pid
+*.lock
+*.cache
+
+# Local/editor files
+.DS_Store
+Thumbs.db
+/.idea/
+/.vscode/
+/.settings/
+/.buildpath
+/.project
+
+# ACME runtime challenge files
+/public/.well-known/acme-challenge/
+
+# Installer-generated local Compose override
+compose.local.yaml

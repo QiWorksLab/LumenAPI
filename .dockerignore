@@ -1,0 +1,15 @@
+.git
+.env
+.env.*
+!.env.example
+vendor
+runtime
+backups
+renderer/node_modules
+*.log
+*.key
+*.pem
+*.p12
+*.pfx
+
+storage/install/install.lock

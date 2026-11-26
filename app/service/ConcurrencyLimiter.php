@@ -1,0 +1,8 @@
+<?php
+namespace app\service;use think\facade\Db;
+class ConcurrencyLimiter{
+ private static ?array $settings=null;
+ private static function settings():array{if(self::$settings!==null)return self::$settings;$r=RedisService::connect();$rk='lumen:cfg:concurrency';if($r)try{$v=$r->get($rk);if($v){$x=json_decode($v,true);if(is_array($x))return self::$settings=$x;}}catch(\Throwable $e){}$rows=Db::name('settings')->where('key','like','concurrency.%')->field('key,value')->select()->toArray();$s=[];foreach($rows as $x)$s[$x['key']]=$x['value'];if($r)try{$r->setex($rk,300,json_encode($s));}catch(\Throwable $e){}return self::$settings=$s;}
+ public static function acquire(array $key):?array{$s=self::settings();if(($s['concurrency.enabled']??'0')!=='1')return['redis'=>null,'keys'=>[]];$r=RedisService::connect();if(!$r)return['redis'=>null,'keys'=>[]];$limits=['key'=>(int)($s['concurrency.key_max']??20),'user'=>(int)($s['concurrency.user_max']??50)];$keys=[];$caps=[];foreach($limits as $scope=>$limit){$id=$scope==='key'?($key['id']??0):($key['user_id']??0);if(!$id||$limit<1)continue;$keys[]='lumen:cc:'.$scope.':'.$id;$caps[]=$limit;}if(!$keys)return['redis'=>$r,'keys'=>[]];$script="for i=1,#KEYS do local n=redis.call('INCR',KEYS[i]);redis.call('EXPIRE',KEYS[i],180);if n>tonumber(ARGV[i]) then redis.call('DECR',KEYS[i]);for j=1,i-1 do redis.call('DECR',KEYS[j]) end;return 0 end end;return 1";$ok=$r->eval($script,array_merge($keys,$caps),count($keys));return (int)$ok===1?['redis'=>$r,'keys'=>$keys]:null;}
+ public static function release(?array $lease):void{if(!$lease||empty($lease['redis']))return;foreach($lease['keys'] as $k){try{$n=$lease['redis']->decr($k);if($n<=0)$lease['redis']->del($k);}catch(\Throwable $e){}}}
+}
