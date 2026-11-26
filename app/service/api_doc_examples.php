@@ -1,6 +1,6 @@
 <?php
 
-$exampleBase='https://apil.qiqi520.cn/v1/'.$api['slug'];
+$exampleBase='__LUMENAPI_ORIGIN__/v1/'.$api['slug'];
 $exampleQuery=[];$exampleBody=[];$exampleHeaders=[];$hasPath=false;
 foreach($params as $param){
 $name=(string)$param['name'];$type=$param['data_type'];$value=$param['default_value']??null;
