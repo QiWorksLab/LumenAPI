@@ -22,13 +22,16 @@ COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 COPY --from=redis-runtime /usr/local/bin/redis-server /usr/local/bin/redis-server
 COPY --from=redis-runtime /usr/local/bin/redis-cli /usr/local/bin/redis-cli
 WORKDIR /var/www/html
+COPY composer.json composer.lock /var/www/html/
+RUN composer install --no-dev --prefer-dist --no-interaction --no-progress --no-scripts --no-autoloader
+COPY renderer/package.json renderer/package-lock.json /opt/lumen-renderer/
+RUN cd /opt/lumen-renderer && npm ci --omit=dev && npm cache clean --force
 COPY . /var/www/html
-RUN composer install --no-dev --prefer-dist --no-interaction --no-progress --optimize-autoloader \
- && mkdir -p runtime/log runtime/session runtime/temp storage/install /data /opt/lumen-renderer \
+COPY renderer/server.js /opt/lumen-renderer/server.js
+RUN mkdir -p runtime/log runtime/session runtime/temp storage/install /data /opt/lumen-renderer \
+ && composer dump-autoload --no-dev --optimize --no-interaction \
  && rm -f storage/install/install.lock \
  && chown -R www-data:www-data scripts runtime storage /data
-COPY renderer/server.js renderer/package.json renderer/package-lock.json /opt/lumen-renderer/
-RUN cd /opt/lumen-renderer && npm ci --omit=dev && npm cache clean --force
 COPY docker/lumenapi/php.ini /usr/local/etc/php/conf.d/99-lumenapi.ini
 COPY docker/lumenapi/zz-lumenapi.conf /usr/local/etc/php-fpm.d/zz-lumenapi.conf
 COPY docker/lumenapi/nginx.conf /etc/nginx/conf.d/default.conf
